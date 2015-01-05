@@ -3,9 +3,11 @@ package netdb.course.softwarestudio.askapp;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +37,7 @@ public class MainActivity extends ActionBarActivity {
     private TextView titleTxt;
     private TextView descriptionTxt;
     private ProgressBar progressBar;
+    private ListView commentList;
 
 
     @Override
@@ -52,6 +56,10 @@ public class MainActivity extends ActionBarActivity {
         titleTxt = (TextView) findViewById(R.id.txt_title);
         descriptionTxt = (TextView) findViewById(R.id.txt_description);
         progressBar = (ProgressBar) findViewById(R.id.pgsb_loading);
+        commentList = (ListView) findViewById(R.id.list_comments);
+
+
+
 
         searchBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
