@@ -12,11 +12,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import netdb.course.softwarestudio.askapp.model.Comment;
@@ -25,7 +29,7 @@ import netdb.course.softwarestudio.askapp.service.rest.RestManager;
 
 
 public class MainActivity extends ActionBarActivity {
-
+    private ArrayList<Comment> cCommentList = new ArrayList<Comment>();
     private RestManager restMgr;
 
     private EditText keywordEdt;
@@ -37,8 +41,8 @@ public class MainActivity extends ActionBarActivity {
     private TextView titleTxt;
     private TextView descriptionTxt;
     private ProgressBar progressBar;
-    private ListView commentList;
-
+    private ListView cListView;
+    private MessageAdapter mMessageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +60,10 @@ public class MainActivity extends ActionBarActivity {
         titleTxt = (TextView) findViewById(R.id.txt_title);
         descriptionTxt = (TextView) findViewById(R.id.txt_description);
         progressBar = (ProgressBar) findViewById(R.id.pgsb_loading);
-        commentList = (ListView) findViewById(R.id.list_comments);
+        cListView = (ListView) findViewById(R.id.list_comments);
 
-
-
+        mMessageAdapter = new MessageAdapter(this, cCommentList);
+        cListView.setAdapter(mMessageAdapter);
 
         searchBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -69,6 +73,8 @@ public class MainActivity extends ActionBarActivity {
                     // send a search request
                     progressBar.setVisibility(View.VISIBLE);
                     searchKeyword(keyword);
+
+                    getComments(keyword);
                 } else {
                     // clear results
                     titleTxt.setText("");
@@ -86,6 +92,7 @@ public class MainActivity extends ActionBarActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     addDefinition(title, description);
                     // searchKeyword(title);
+                    getComments(title);
                 }
             }
         });
@@ -98,11 +105,54 @@ public class MainActivity extends ActionBarActivity {
                 if (content.length() != 0 && title.length() != 0) {
                     progressBar.setVisibility(View.VISIBLE);
                     addComment(title, content);
-                    // searchKeyword(title);
+                    getComments(title);
                 }
             }
         });
 
+    }
+
+    private void getComments(String title) {
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(title, null);
+
+
+        restMgr.listResource(Comment.class, params, new RestManager.ListResourceListener<Comment>() {
+            @Override
+            public void onResponse(int code, Map<String, String> headers,
+                                   List<Comment> resources) {
+                if (resources != null) {
+
+                    Log.d("TAG", "CODEIS : " + code );
+                    Log.d("TAG", "HEADER : " +  headers.toString());
+                    Log.d("TAG", "YA~ GET : " + resources);
+
+                    cCommentList.clear();
+                    for (Comment m : resources) {
+                        cCommentList.add(m);
+                    }
+
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMessageAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onRedirect(int code, Map<String, String> headers, String url) {
+                onError(null, null, code, headers);
+            }
+
+            @Override
+            public void onError(String message, Throwable cause, int code,
+                                Map<String, String> headers) {
+                Log.d(this.getClass().getSimpleName(), "" + code + ": " + message);
+            }
+        }, null);
     }
 
     private void addComment(String title, String content){
