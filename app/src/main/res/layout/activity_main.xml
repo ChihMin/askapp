@@ -52,6 +52,20 @@
                 android:id="@+id/txt_description"
                 android:layout_gravity="top|left" />
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edt_definition"
+                android:hint="如果發現沒有定義，你可以自己定義" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="323dp"
+                android:layout_height="wrap_content"
+                android:text="定義"
+                android:id="@+id/btn_definition"
+                android:layout_gravity="center_horizontal" />
+
 
         </LinearLayout>
     </ScrollView>
