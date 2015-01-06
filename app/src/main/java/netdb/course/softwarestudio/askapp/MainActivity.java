@@ -3,7 +3,6 @@ package netdb.course.softwarestudio.askapp;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,9 +10,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -32,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<Comment> cCommentList = new ArrayList<Comment>();
     private RestManager restMgr;
 
-    private EditText keywordEdt;
+    public static EditText keywordEdt;
     private EditText definitionEdt;
     private EditText commentEdt;
     private Button searchBtn;
@@ -151,6 +147,32 @@ public class MainActivity extends ActionBarActivity {
                 Log.d(this.getClass().getSimpleName(), "" + code + ": " + message);
             }
         }, null);
+
+    /*
+        String URL = getResources().getString(R.string.rest_server_url);
+        URL = URL + "comments/" + title;
+        Log.d("TAG", URL );
+
+            // defaultHttpClient
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpContext localContext = new BasicHttpContext();
+        HttpGet httpPost = new HttpGet(URL);
+        Log.d("URI", httpPost.getURI().toString());
+        try {
+            HttpResponse httpResponse = httpClient.execute(httpPost, localContext);
+            Log.d("MON","I'm HERE~");
+            HttpEntity httpEntity = httpResponse.getEntity();
+            Log.d("TAG", httpEntity.getContent().toString());
+
+            return;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       */
     }
 
     private void addComment(String title, String content){
