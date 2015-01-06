@@ -115,8 +115,6 @@ public class MainActivity extends ActionBarActivity {
     private void getComments(String title) {
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put(title, null);
-
 
         restMgr.listResource(Comment.class, params, new RestManager.ListResourceListener<Comment>() {
             @Override
