@@ -82,10 +82,10 @@
                 android:layout_gravity="center_horizontal" />
 
             <ListView
-                android:layout_width="340dp"
-                android:layout_height="235dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:id="@+id/list_comments"
-                android:layout_weight="0.19" />
+                android:layout_weight="1.13" />
 
 
         </LinearLayout>
