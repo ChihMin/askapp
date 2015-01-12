@@ -16,3 +16,7 @@
 不過如果要方便看comment
 
 記得要把小鍵盤收起來ＸＤ”
+
+Android Client端是和隊友邱政凱設計的XD
+
+我負責設計製作Server的部分
