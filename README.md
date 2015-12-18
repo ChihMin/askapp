@@ -1,4 +1,6 @@
 # Android Client
+
+[![Join the chat at https://gitter.im/ChihMin/askapp](https://badges.gitter.im/ChihMin/askapp.svg)](https://gitter.im/ChihMin/askapp?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 首先，我的server已經deploy到 http://chihmin-ask.appspot.com/
 
 所以直接用就好了XD"
